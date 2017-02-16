@@ -15,17 +15,34 @@ public class Main {
 
     public static void main(String[] args) {
 
-        do{
-            initField();
-            printField();
+        initField();
+        printField();
+
+        while(true){
 
             playerTurn();
             printField();
-
+            if(isFieldFull()) {
+                System.out.println("Ничья");
+                break;
+            }
+            if(checkWin('X')) {
+                System.out.println("Победил человек!");
+                break;
+            }
 
             aiTurn();
             printField();
-        } while();
+            if(isFieldFull()) {
+                System.out.println("Ничья");
+                break;
+            }
+            if(checkWin('O')) {
+                System.out.println("Победил AI!");
+                break;
+            }
+
+        }
         
     }
 
@@ -67,7 +84,7 @@ public class Main {
             x = scanner.nextInt();
             y = scanner.nextInt();
 
-        }while(!isCellEmpty(x, y));
+        }while(!isCellEmpty(x - 1, y - 1));
 
         setXO(x - 1, y - 1, 'X');
     }
@@ -91,7 +108,7 @@ public class Main {
 
         }while(!isCellEmpty(x, y));
 
-        setXO(x - 1, y - 1, 'O');
+        setXO(x, y, 'O');
     }
 
     public static boolean isFieldFull() {
@@ -99,22 +116,22 @@ public class Main {
         for (int i = 0; i < FIELD_SIZE; i++) {
             for (int j = 0; j < FIELD_SIZE; j++) {
                 if(field[i][j] == '*')
-                    return true;
+                    return false;
             }
         }
 
-        return false;
+        return true;
     }
 
     public static boolean checkWin(char xo) {
 
         for (int i = 0; i < FIELD_SIZE; i++) {
-            if(checkLine(i, 0, i, 0, FIELD_SIZE, xo)) return true;
-            if(checkLine(0, i, 0, i, FIELD_SIZE, xo)) return true;
+            if(checkLine(0, i, 1, 0, FIELD_SIZE, xo)) return true;
+            if(checkLine(i, 0, 0, 1, FIELD_SIZE, xo)) return true;
         }
 
         if(checkLine(0, 0, 1, 1, FIELD_SIZE, xo)) return true;
-        if(checkLine(0, 2, 0, -1, FIELD_SIZE, xo)) return true;
+        if(checkLine(0, 2, 1, -1, FIELD_SIZE, xo)) return true;
 
         return false;
     }
