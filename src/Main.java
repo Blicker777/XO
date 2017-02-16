@@ -18,6 +18,10 @@ public class Main {
         initField();
         printField();
 
+        playerTurn();
+
+        aiTurn();
+
     }
 
     public static void initField() {
@@ -83,7 +87,18 @@ public class Main {
         }while(!isCellEmpty(x, y));
 
         setXO(x - 1, y - 1, 'O');
+    }
 
+    public static boolean isFieldFull() {
+
+        for (int i = 0; i < Y_SIZE; i++) {
+            for (int j = 0; j < X_SIZE; j++) {
+                if(field[i][j] == '*')
+                    return true;
+            }
+        }
+
+        return false;
     }
 
 
