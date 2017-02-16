@@ -25,6 +25,16 @@ public class Main {
         }
     }
 
+    public static void printField() {
+        for (int i = 0; i < Y_SIZE; i++) {
+            for (int j = 0; j < X_SIZE; j++) {
+                System.out.print(field[i][j] + " ");
+            }
+            System.out.println();
+        }
+        System.out.println();
+    }
+
 
 
 }
