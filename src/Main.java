@@ -13,7 +13,8 @@ public class Main {
     static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
-
+        initField();
+        printField();
 
     }
 
@@ -33,6 +34,39 @@ public class Main {
             System.out.println();
         }
         System.out.println();
+    }
+
+    public static boolean setXO(int x, int y, char xo) {
+
+        if(field[y][x] == '*') {
+            field[y][x] = xo;
+            return true;
+        }
+
+        return false;
+    }
+
+    public static void playerTurn() {
+
+        int x;
+        int y;
+
+        do {
+            System.out.println("Введите координаты: x y");
+            x = scanner.nextInt();
+            y = scanner.nextInt();
+
+        }while(!isCellEmpty(x, y));
+
+        setXO(x, y, 'X');
+    }
+
+    public static boolean isCellEmpty(int x, int y) {
+
+        if(field[y][x] == '*')
+            return true;
+
+        return false;
     }
 
 
