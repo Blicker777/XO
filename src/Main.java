@@ -6,35 +6,40 @@ import java.util.Scanner;
  */
 public class Main {
 
-    final static int X_SIZE = 3;
-    final static int Y_SIZE = 3;
+    final static int FIELD_SIZE = 3;
 
-    static char[][] field = new char[Y_SIZE][X_SIZE];
+    static char[][] field = new char[FIELD_SIZE][FIELD_SIZE];
 
     static Scanner scanner = new Scanner(System.in);
     static Random rand = new Random();
 
     public static void main(String[] args) {
-        initField();
-        printField();
 
-        playerTurn();
+        do{
+            initField();
+            printField();
 
-        aiTurn();
+            playerTurn();
+            printField();
 
+
+            aiTurn();
+            printField();
+        } while();
+        
     }
 
     public static void initField() {
-        for (int i = 0; i < Y_SIZE; i++) {
-            for (int j = 0; j < X_SIZE; j++) {
+        for (int i = 0; i < FIELD_SIZE; i++) {
+            for (int j = 0; j < FIELD_SIZE; j++) {
                 field[i][j] = '*';
             }
         }
     }
 
     public static void printField() {
-        for (int i = 0; i < Y_SIZE; i++) {
-            for (int j = 0; j < X_SIZE; j++) {
+        for (int i = 0; i < FIELD_SIZE; i++) {
+            for (int j = 0; j < FIELD_SIZE; j++) {
                 System.out.print(field[i][j] + " ");
             }
             System.out.println();
@@ -81,8 +86,8 @@ public class Main {
         int y;
 
         do {
-            x = rand.nextInt(X_SIZE);
-            y = rand.nextInt(Y_SIZE);
+            x = rand.nextInt(FIELD_SIZE);
+            y = rand.nextInt(FIELD_SIZE);
 
         }while(!isCellEmpty(x, y));
 
@@ -91,14 +96,36 @@ public class Main {
 
     public static boolean isFieldFull() {
 
-        for (int i = 0; i < Y_SIZE; i++) {
-            for (int j = 0; j < X_SIZE; j++) {
+        for (int i = 0; i < FIELD_SIZE; i++) {
+            for (int j = 0; j < FIELD_SIZE; j++) {
                 if(field[i][j] == '*')
                     return true;
             }
         }
 
         return false;
+    }
+
+    public static boolean checkWin(char xo) {
+
+        for (int i = 0; i < FIELD_SIZE; i++) {
+            if(checkLine(i, 0, i, 0, FIELD_SIZE, xo)) return true;
+            if(checkLine(0, i, 0, i, FIELD_SIZE, xo)) return true;
+        }
+
+        if(checkLine(0, 0, 1, 1, FIELD_SIZE, xo)) return true;
+        if(checkLine(0, 2, 0, -1, FIELD_SIZE, xo)) return true;
+
+        return false;
+    }
+
+    public static boolean checkLine(int x, int y, int vx, int vy, int l, char xo) {
+
+        for (int i = 0; i < l; i++) {
+            if(field[y + vy * i][x + vx * i] != xo) return false;
+        }
+
+        return true;
     }
 
 
