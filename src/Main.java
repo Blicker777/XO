@@ -1,3 +1,4 @@
+import java.util.Random;
 import java.util.Scanner;
 
 /**
@@ -11,6 +12,7 @@ public class Main {
     static char[][] field = new char[Y_SIZE][X_SIZE];
 
     static Scanner scanner = new Scanner(System.in);
+    static Random rand = new Random();
 
     public static void main(String[] args) {
         initField();
@@ -58,7 +60,7 @@ public class Main {
 
         }while(!isCellEmpty(x, y));
 
-        setXO(x, y, 'X');
+        setXO(x - 1, y - 1, 'X');
     }
 
     public static boolean isCellEmpty(int x, int y) {
@@ -67,6 +69,21 @@ public class Main {
             return true;
 
         return false;
+    }
+
+    public static void aiTurn() {
+
+        int x;
+        int y;
+
+        do {
+            x = rand.nextInt(X_SIZE);
+            y = rand.nextInt(Y_SIZE);
+
+        }while(!isCellEmpty(x, y));
+
+        setXO(x - 1, y - 1, 'O');
+
     }
 
 
